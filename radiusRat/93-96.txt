@@ -1,0 +1,6 @@
+mass ratio (impactor/total): 0.1
+Angle	radiusRatio
+0	0.999359589962533
+30	0.999272804648437
+60	0.885327105189368
+90	0.1
