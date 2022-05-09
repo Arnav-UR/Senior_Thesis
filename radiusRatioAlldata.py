@@ -1,3 +1,5 @@
+### This file calculates rEff/rCore for all impacts (impact angle 0 - 90, all values of gamma) ###
+
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import numpy as np
@@ -53,6 +55,8 @@ plt.colorbar()
 
 popt, pcov = curve_fit(func, [angle, gamma], radRat)
 
+print(*popt)
+
 
 angl_test = np.linspace(0, 90, 1000)
 gamma_test1 = np.full(1000, 0.03)
@@ -73,8 +77,3 @@ plt.ylabel('Radius Ratio')
 plt.title('Radius Ratio vs Impact Angle at Various γ')
 plt.savefig('./allDataFitTestsigGrad3.png')
 plt.show()
-
-
-
-
-
