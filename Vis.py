@@ -1,11 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
+### This file generates plots for each time step in a given SPH simulation which depicts the planets during impact, with their mantles/cores color coded ###
 
 
 import math, glob, os 
-import matplotlib
 import matplotlib.pyplot as plt
 
 class target:
@@ -19,18 +15,6 @@ class impactor:
 def sci2Float (sciNot):
     A = sciNot.split('e')
     return float(A[0])*math.pow(10, int(A[1]))
-
-#Calculates the number of iron particles inside of the target
-def numIron (target, x, y, z, iron, leng):
-    ironCount = 0
-    for i in range(0, leng):
-        if (1 > ((target.center[0]-x[i])/(target.radii[0]))**2 + ((target.center[1] - y[i])/(target.radii[1]))**2 + 
-            ((target.center[2] - z[i])/(target.radii[2]))**2 and iron[i]):
-            ironCount+=1
-    return(ironCount)
-
-
-# In[2]:
 
 
 directory = input('Enter directory name for data set: ')
@@ -52,8 +36,6 @@ time = []
 
 files = [file for file in files if not(str(file).endswith("disk.dat") or str(file).endswith("diss.dat"))]
 for file in files:
-    # if str(file).endswith("disk.dat"):
-    #     break
     with open(file) as r:
         lines = r.readlines()[2:]
     print(str(file))
@@ -100,6 +82,8 @@ for file in files:
         trgt.radii = [abs(trgt.center[0]-max(x_t)), abs(trgt.center[1]-max(y_t)), abs(trgt.center[2]-max(z_t))]
         impctr.radii = [abs(trgt.center[0]-max(x_i)), abs(trgt.center[1]-max(y_i)), abs(trgt.center[2]-max(z_i))]
     
+    # Set plot axes size
+    
     xlim = 2*(trgt.radii[1] + impctr.radii[1])
     ylim = 2*(trgt.radii[1] + impctr.radii[1])
     cntrH = trgt.center + impctr.center
@@ -143,6 +127,7 @@ for file in files:
     plt.xlabel('x position (m)')
     plt.ylabel('y position (m)')
     plt.title(str(curr_time)+' hrs')
+    plt.gca().set_aspect(1)
     
     if (not os.path.exists('./Time_Evolution_Figs/'+directory)):
         os.mkdir('./Time_Evolution_Figs/'+directory)
