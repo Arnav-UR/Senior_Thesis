@@ -1,3 +1,5 @@
+### This file calculates rEff/rCore for one set of impacts (impact angle 0 - 90) ###
+
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import numpy as np
@@ -33,22 +35,12 @@ for file in files:
         angle.append(float(line.split('\t')[0]))
         radRat.append(float(line.split('\t')[1]))
 
-#    angle = [0, 30, 60, 90]
-#    rR = [1, 1, 0.87065987691, 0.2303460449]
 
     plt.scatter(angle, radRat)
     # curve fit wrt angle, then mass ratio
     popt, pcov = curve_fit(P, angle, radRat)
     popt2, pcov2 = curve_fit(C, angle, radRat)
     
-#    print(popt)
-#    print(popt2)
-
-    w = open('./MR-PR.txt','a')
-    w.write(str(gamma))
-    for p in popt:
-        w.write('\t'+str(p))
-    w.write('\n')
     
     figname = str(file)[-9:-4]
     angl_test = np.linspace(0, 100, 1000)
@@ -61,7 +53,3 @@ for file in files:
     plt.show()
     
     r.close()
-    w.close()
-
-
-
