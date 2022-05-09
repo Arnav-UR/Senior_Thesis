@@ -1,11 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
+### This file calculates the ratio of accreted impactor core mass to total impactor core mass for a given SPH simulation ###
 
 
 import math, glob 
-import matplotlib
 import matplotlib.pyplot as plt
 
 class target:
@@ -53,8 +49,6 @@ for file in files:
         break
     with open(file) as r:
         lines = r.readlines()[2:]
-#         if str(file) == './sphg9__94\d0990.dat':
-#             break
     print(str(file))
     curr_time = sci2Float(lines[0])
     lines = lines[1:]
